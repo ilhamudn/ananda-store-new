@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('barcode')->unique(); // Barcode unik per barang
+            $table->string('nama_barang');
+            $table->decimal('harga_beli', 10, 2); // Harga beli, 10 digit total, 2 di belakang koma
+            $table->decimal('harga_jual', 10, 2)->nullable(); // Tambahkan harga jual, bisa null dulu
+            $table->integer('stok');
+            $table->date('tanggal_pembelian'); // Tanggal pembelian awal barang baru
+            $table->timestamps(); // created_at dan updated_at
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('products');
+    }
+};
